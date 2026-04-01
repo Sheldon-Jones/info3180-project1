@@ -5,8 +5,13 @@ Werkzeug Documentation:  https://werkzeug.palletsprojects.com/
 This file contains the routes for your application.
 """
 
-from app import app
+from app import app, db
 from flask import render_template, request, redirect, url_for
+import os
+from flask import (Blueprint, render_template, redirect, url_for, flash, current_app)
+from werkzeug.utils import secure_filename
+from app.models import Property
+from app.forms import PropertyForm
 
 
 ###
@@ -22,7 +27,62 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    return render_template('about.html', name="Sheldon Jones")
+
+
+def allowed_file(filename):
+    allowed = current_app.config.get('ALLOWED_EXTENSIONS', {'png', 'jpg', 'jpeg', 'gif'})
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed
+
+
+@app.route('/')
+def index():
+    return redirect(url_for('app.properties_list'))
+
+
+@app.route('/properties/create', methods=['GET', 'POST'])
+def property_create():
+    form = PropertyForm()
+
+    if form.validate_on_submit():
+        photo = form.photo.data
+        filename = secure_filename(photo.filename)
+
+        upload_folder = current_app.config['UPLOAD_FOLDER']
+        os.makedirs(upload_folder, exist_ok=True)
+        photo.save(os.path.join(upload_folder, filename))
+
+        new_property = Property(
+            title=form.title.data,
+            description=form.description.data,
+            no_of_bedrooms=form.no_of_bedrooms.data,
+            no_of_bathrooms=form.no_of_bathrooms.data,
+            location=form.location.data,
+            price=form.price.data,
+            property_type=form.property_type.data,
+            photo=filename
+        )
+
+        db.session.add(new_property)
+        db.session.commit()
+
+        flash('Property successfully added!', 'success')
+        return redirect(url_for('app.properties_list'))
+
+    return render_template('properties/create.html', form=form)
+
+
+@app.route('/properties')
+def properties_list():
+    properties = Property.query.order_by(Property.created_at.desc()).all()
+    return render_template('properties/list.html', properties=properties)
+
+
+@app.route('/properties/<int:propertyid>')
+def property_detail(propertyid):
+    prop = Property.query.get_or_404(propertyid)
+    return render_template('properties/detail.html', property=prop)
+
 
 
 ###
