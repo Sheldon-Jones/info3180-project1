@@ -35,12 +35,8 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed
 
 
-@app.route('/')
-def index():
-    return redirect(url_for('app.properties_list'))
 
-
-@app.route('/properties/create', methods=['GET', 'POST'])
+@app.route('/create/', methods=['GET', 'POST'])
 def property_create():
     form = PropertyForm()
 
@@ -67,21 +63,21 @@ def property_create():
         db.session.commit()
 
         flash('Property successfully added!', 'success')
-        return redirect(url_for('app.properties_list'))
+        return redirect(url_for('properties_list'))
 
-    return render_template('properties/create.html', form=form)
+    return render_template('create.html', form=form)
 
 
-@app.route('/properties')
+@app.route('/list/')
 def properties_list():
     properties = Property.query.order_by(Property.created_at.desc()).all()
-    return render_template('properties/list.html', properties=properties)
+    return render_template('list.html', properties=properties)
 
 
-@app.route('/properties/<int:propertyid>')
+@app.route('/<int:propertyid>/')
 def property_detail(propertyid):
     prop = Property.query.get_or_404(propertyid)
-    return render_template('properties/detail.html', property=prop)
+    return render_template('detail.html', property=prop)
 
 
 

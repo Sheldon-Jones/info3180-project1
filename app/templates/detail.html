@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ property.title }}{% endblock %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{ url_for('app.properties_list') }}" class="text-decoration-none">Properties</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ property.title }}</li>
+    </ol>
+</nav>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0"><i class="bi bi-house-door me-2"></i>{{ property.title }}</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="row g-4">
+
+            {# Property photo #}
+            <div class="col-md-6">
+                {% if property.photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + property.photo) }}"
+                         class="img-fluid rounded shadow-sm w-100 property-detail-img"
+                         alt="{{ property.title }}">
+                {% else %}
+                    <div class="bg-secondary text-white d-flex align-items-center
+                                justify-content-center rounded property-detail-img">
+                        <i class="bi bi-image fs-1"></i>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# Property details #}
+            <div class="col-md-6">
+
+                <span class="badge bg-dark fs-6 mb-3">{{ property.property_type }}</span>
+
+                <h5 class="fw-bold text-dark fs-4">
+                    ${{ "{:,.2f}".format(property.price) }}
+                </h5>
+
+                <p class="text-muted mb-3">
+                    <i class="bi bi-geo-alt-fill me-1"></i>{{ property.location }}
+                </p>
+
+                <hr>
+
+                <p class="mb-3 lh-base">{{ property.description }}</p>
+
+                <div class="row g-2 mb-4">
+                    <div class="col-6">
+                        <div class="detail-badge rounded p-2 bg-light text-center">
+                            <i class="bi bi-door-open fs-4 text-dark"></i>
+                            <div class="fw-semibold">{{ property.no_of_bedrooms }}</div>
+                            <div class="text-muted small">Bedroom{{ 's' if property.no_of_bedrooms != 1 else '' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="detail-badge rounded p-2 bg-light text-center">
+                            <i class="bi bi-droplet fs-4 text-dark"></i>
+                            <div class="fw-semibold">{{ property.no_of_bathrooms }}</div>
+                            <div class="text-muted small">Bathroom{{ 's' if property.no_of_bathrooms != 1 else '' }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-sm-flex">
+                    <button type="button" class="btn btn-dark px-4">
+                        <i class="bi bi-envelope me-1"></i>Email Realtor
+                    </button>
+                    <a href="{{ url_for('app.properties_list') }}"
+                       class="btn btn-outline-secondary px-4">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Listings
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

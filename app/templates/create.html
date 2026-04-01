@@ -2,7 +2,7 @@
 
 {% block title %}Add New Property{% endblock %}
 
-{% block content %}
+{% block main %}
 <div class="row justify-content-center">
     <div class="col-lg-8">
 
@@ -100,7 +100,7 @@
 
                     {# Submit #}
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ url_for('main.properties_list') }}"
+                        <a href="{{ url_for('properties_list') }}"
                            class="btn btn-outline-secondary me-md-2">
                             <i class="bi bi-x-circle me-1"></i>Cancel
                         </a>
