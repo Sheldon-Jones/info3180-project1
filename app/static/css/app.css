@@ -1,3 +1,67 @@
 body {
     padding-top: 5rem;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+main.container {
+    flex: 1;
+}
+
+/* ---- Navbar ---- */
+.navbar-brand {
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+}
+
+/* ---- Property list card images ---- */
+.property-list-img {
+    height: 210px;
+    object-fit: cover;
+    width: 100%;
+}
+
+/* ---- Property card hover effect ---- */
+.property-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.property-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ---- Property detail large image ---- */
+.property-detail-img {
+    height: 360px;
+    object-fit: cover;
+    width: 100%;
+}
+
+/* ---- Detail badge tiles (beds / baths) ---- */
+.detail-badge {
+    border: 1px solid #dee2e6;
+}
+
+/* ---- Form card header ---- */
+.card-header h4 {
+    font-size: 1.1rem;
+}
+
+/* ---- Flash messages ---- */
+.alert {
+    border-radius: 0.5rem;
+}
+
+/* ---- Footer ---- */
+.footer {
+    font-size: 0.875rem;
+}
+
+/* ---- Breadcrumb ---- */
+.breadcrumb-item a {
+    color: #343a40;
 }

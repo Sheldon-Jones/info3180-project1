@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Property{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Add New Property</h4>
+            </div>
+
+            <div class="card-body p-4">
+                <form method="POST" enctype="multipart/form-data" novalidate>
+                    {{ form.hidden_tag() }}
+
+                    {# Title #}
+                    <div class="mb-3">
+                        {{ form.title.label(class="form-label fw-semibold") }}
+                        {{ form.title(class="form-control" + (" is-invalid" if form.title.errors else ""),
+                                      placeholder="Enter property title") }}
+                        {% for error in form.title.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    {# Description #}
+                    <div class="mb-3">
+                        {{ form.description.label(class="form-label fw-semibold") }}
+                        {{ form.description(class="form-control" + (" is-invalid" if form.description.errors else ""),
+                                            rows=4,
+                                            placeholder="Enter a short description of the property") }}
+                        {% for error in form.description.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    {# Bedrooms & Bathrooms side by side #}
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            {{ form.no_of_bedrooms.label(class="form-label fw-semibold") }}
+                            {{ form.no_of_bedrooms(class="form-control" + (" is-invalid" if form.no_of_bedrooms.errors else ""),
+                                                   placeholder="e.g. 3") }}
+                            {% for error in form.no_of_bedrooms.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.no_of_bathrooms.label(class="form-label fw-semibold") }}
+                            {{ form.no_of_bathrooms(class="form-control" + (" is-invalid" if form.no_of_bathrooms.errors else ""),
+                                                    placeholder="e.g. 2") }}
+                            {% for error in form.no_of_bathrooms.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {# Location #}
+                    <div class="mb-3">
+                        {{ form.location.label(class="form-label fw-semibold") }}
+                        {{ form.location(class="form-control" + (" is-invalid" if form.location.errors else ""),
+                                         placeholder="e.g. Kingston, Jamaica") }}
+                        {% for error in form.location.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    {# Price #}
+                    <div class="mb-3">
+                        {{ form.price.label(class="form-label fw-semibold") }}
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            {{ form.price(class="form-control" + (" is-invalid" if form.price.errors else ""),
+                                          placeholder="e.g. 250000.00") }}
+                            {% for error in form.price.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {# Property Type #}
+                    <div class="mb-3">
+                        {{ form.property_type.label(class="form-label fw-semibold") }}
+                        {{ form.property_type(class="form-select" + (" is-invalid" if form.property_type.errors else "")) }}
+                        {% for error in form.property_type.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    {# Photo upload #}
+                    <div class="mb-4">
+                        {{ form.photo.label(class="form-label fw-semibold") }}
+                        {{ form.photo(class="form-control" + (" is-invalid" if form.photo.errors else "")) }}
+                        {% for error in form.photo.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                        <div class="form-text">Accepted formats: JPG, JPEG, PNG, GIF</div>
+                    </div>
+
+                    {# Submit #}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('main.properties_list') }}"
+                           class="btn btn-outline-secondary me-md-2">
+                            <i class="bi bi-x-circle me-1"></i>Cancel
+                        </a>
+                        {{ form.submit(class="btn btn-dark px-4") }}
+                    </div>
+
+                </form>
+            </div><!-- /card-body -->
+        </div><!-- /card -->
+
+    </div>
+</div>
+{% endblock %}

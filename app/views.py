@@ -27,7 +27,7 @@ def home():
 @app.route('/about/')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Sheldon Jones")
+    return render_template('about.html', name="Properties for sale/rent")
 
 
 def allowed_file(filename):
