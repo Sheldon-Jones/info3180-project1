@@ -7,7 +7,7 @@
 <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ url_for('app.properties_list') }}" class="text-decoration-none">Properties</a>
+            <a href="{{ url_for('properties_list') }}" class="text-decoration-none">Properties</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ property.title }}</li>
     </ol>
@@ -73,7 +73,7 @@
                     <button type="button" class="btn btn-dark px-4">
                         <i class="bi bi-envelope me-1"></i>Email Realtor
                     </button>
-                    <a href="{{ url_for('app.properties_list') }}"
+                    <a href="{{ url_for('properties_list') }}"
                        class="btn btn-outline-secondary px-4">
                         <i class="bi bi-arrow-left me-1"></i>Back to Listings
                     </a>
