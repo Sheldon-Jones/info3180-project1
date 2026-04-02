@@ -11,7 +11,13 @@ db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()
 
-
 app = Flask(__name__)
+
 app.config.from_object(Config)
-from app import views
+
+db.init_app(app)
+migrate.init_app(app, db)
+csrf.init_app(app)
+
+
+from app import views, models

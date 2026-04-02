@@ -65,6 +65,7 @@ def property_create():
         flash('Property successfully added!', 'success')
         return redirect(url_for('properties_list'))
 
+
     return render_template('create.html', form=form)
 
 
